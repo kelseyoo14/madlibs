@@ -38,11 +38,14 @@ def greet_person():
                            person=player,
                            compliment=compliment)
 
-@app.route('/game')
+@app.route('/game', methods=['POST', 'GET'])
 def show_game_form():
     """Plays game"""
 
-    answer = request.args.get("play-game")
+    if request.method == 'POST':
+        answer = request.form.get("play-game")
+    else:
+        answer = request.args.get("play-game")
 
     if answer == "no":
         return render_template("goodbye.html")
@@ -56,10 +59,12 @@ def show_madlib():
     noun = request.args.get("noun")
     person = request.args.get("person")
     adjective = request.args.get("adjective")
-    # need to pass back list somehow for jinga madlib.html
-    adjectives2 = request.args.get("adjectives2")
+    # Use .getlist to return ALL values for the parameter "adjectives2" from multi-dict 
+    adjectives2 = request.args.getlist("adjectives2")
 
-    return render_template("madlib.html",
+    # HTML_files = ["madlib.html", "madlib2.html"]
+    random_html = choice(["madlib.html", "madlib2.html"])
+    return render_template(random_html,
                             color=madlib_color,
                             noun=noun,
                             person=person,
