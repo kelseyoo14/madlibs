@@ -42,10 +42,12 @@ def greet_person():
 def show_game_form():
     """Plays game"""
 
-    if request.method == 'POST':
-        answer = request.form.get("play-game")
-    else:
-        answer = request.args.get("play-game")
+    # if request.method == 'POST':
+    #     answer = request.form.get("play-game")
+    # else:
+    #     answer = request.args.get("play-game")
+    
+    answer = request.values.get("play-game")
 
     if answer == "no":
         return render_template("goodbye.html")
