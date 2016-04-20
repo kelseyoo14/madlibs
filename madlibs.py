@@ -52,16 +52,19 @@ def show_game_form():
 @app.route('/madlib')
 def show_madlib():
 
-    color = request.args.get("color")
+    madlib_color = request.args.get("usercolor")
     noun = request.args.get("noun")
     person = request.args.get("person")
     adjective = request.args.get("adjective")
+    # need to pass back list somehow for jinga madlib.html
+    adjectives2 = request.args.get("adjectives2")
 
     return render_template("madlib.html",
-                            color=color,
+                            color=madlib_color,
                             noun=noun,
                             person=person,
-                            adjective=adjective)
+                            adjective=adjective,
+                            adjectives2=adjectives2)
 
 if __name__ == '__main__':
     # debug=True gives us error messages in the browser and also "reloads" our web app
